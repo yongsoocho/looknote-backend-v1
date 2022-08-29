@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <style>
+      .container {
+        width: 60%;
+        padding: 25px 25px;
+        box-sizing: border-box;
+        margin: auto auto;
+        background-color: white;
+      }
+      .header {
+        border-bottom: 5px solid black;
+        padding-bottom: 20px;
+        position: relative;
+      }
+      .watermark {
+        left: 0;
+        bottom: 0;
+        width: 40%;
+      }
+      .title {
+        margin-top: 50px;
+        margin-bottom: 25px;
+      }
+      .info {
+        font-size: 1vw;
+        font-weight: 600;
+      }
+      .content {
+        background-color: #f5f5f5;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        border-radius: 15px;
+      }
+      .description {
+        font-size: 1vw;
+        font-weight: 400;
+        text-align: center;
+      }
+      .code {
+        font-size: 1vw;
+        font-weight: 800;
+        text-align: center;
+      }
+      .tag {
+        padding-bottom: 50px;
+        box-sizing: border-box;
+      }
+      .footer {
+        color: grey;
+        font-size: 0.5vw;
+        text-align: center;
+      }
+
+      @media (max-width: 512px) {
+        .container {
+          width: 100%;
+        }
+        .header {
+          padding-bottom: 10px;
+        }
+        .title {
+          margin-top: 20px;
+          margin-bottom: 10px;
+        }
+        .info {
+          font-size: 3vw;
+        }
+        .content {
+          padding: 25px 0;
+          margin-bottom: 25px;
+        }
+        .description {
+          font-size: 2vw;
+        }
+        .code {
+          font-size: 3.5vw;
+        }
+        .footer {
+          font-size: 0.25vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img class="watermark" src="https://looknote.co.kr/wordmark.png" />
+      </div>
+      <div class="title">
+        <span class="info">요청하신 이메일 인증번호입니다.</span>
+      </div>
+      <div class="content">
+        <p class="description">아래의 6자리 인증번호를 입력해주세요.</p>
+        <p class="code">{{code}}</p>
+      </div>
+      <hr />
+      <div class="tag">
+        <p class="footer">
+          본 메일은 발신전용입니다. 기타 문의사항은 아래 이메일 주소를 통해
+          연락주세요.
+        </p>
+        <p class="footer">Befferent Inc. ⎟ 대표 : 김민선</p>
+        <p class="footer">
+          주소 : 서울시 성북구 안암로 145 고려대학교 R&D센터 642B호
+        </p>
+        <p class="footer">이메일 : looknote.official@befferent.co.kr</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  likeCount     Int         @default(0)
+  authorId  Int
+  imageURL  String[]
+  author    User        @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+  Likes     Likes[]
+  Report    Report[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  content   String   @db.Text
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Tag {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  imageURL  String
+  ct_ct_001 String?
+  ct_ct_002 String?
+  ct_ct_003 String?
+  details   String[]
+  authorId  Int
+  author    User        @relation(fields: [authorId], references: [id])
+  link      String      @default("")
+  brand     String      @default("")
+  TagCloset TagCloset[]
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  email        String      @unique
+  name         String      @db.VarChar(15)
+  nickname     String      @unique @db.VarChar(15)
+  password     String
+  agree        Boolean     @default(true)
+  dateOfBirth  String?     @db.VarChar(8)
+  gender       Gender      @default(ETC)
+  height       String?     @db.VarChar(3)
+  profile      String?
+  provider     Provider    @default(LOCAL)
+  snsId        String?
+  weight       String?     @db.VarChar(3)
+  tags         Tag[]
+  posts        Post[]
+  deletedAt    DateTime?
+  createdAt    DateTime    @default(now())
+  comments     Comment[]
+  point        Int         @default(0)
+  pointSum     Int         @default(0)
+  status       UserStatus  @default(ACTIVE)
+  TagCloset    TagCloset[]
+  subscribers  Subscribe[] @relation("subscriber")
+  subscribings Subscribe[] @relation("subscribing")
+  Likes        Likes[]
+  reason       String?
+  admin        Boolean     @default(false)
+  Report       Report[]
+}
+
+model TagCloset {
+  authorId Int
+  tagId    Int
+  author   User @relation(fields: [authorId], references: [id])
+  tag      Tag  @relation(fields: [tagId], references: [id])
+
+  @@id([authorId, tagId])
+}
+
+model Likes {
+  authorId Int
+  postId   Int
+  author   User @relation(fields: [authorId], references: [id])
+  post     Post @relation(fields: [postId], references: [id])
+
+  @@id([authorId, postId])
+}
+
+model Subscribe {
+  subscriberId  Int
+  subscribingId Int
+  subscriber    User @relation("subscriber", fields: [subscriberId], references: [id])
+  subscribing   User @relation("subscribing", fields: [subscribingId], references: [id])
+
+  @@id([subscriberId, subscribingId])
+}
+
+model Report {
+  authorId Int
+  postId   Int
+  author   User @relation(fields: [authorId], references: [id])
+  post     Post @relation(fields: [postId], references: [id])
+
+  @@id([authorId, postId])
+}
+
+enum Provider {
+  LOCAL
+  KAKAO
+  APPLE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  ETC
+}
+
+enum TagStatus {
+  PENDING
+  FULFILLED
+}
+
+enum UserStatus {
+  DELETE
+  ACTIVE
+}

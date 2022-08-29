@@ -1,0 +1,9 @@
+dist/
+node_modules/
+logs/
+looknote-backend-seoul.pem
+test/
+README.md
+logs.zip
+.eslintrc.js
+.prettierrc
